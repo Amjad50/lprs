@@ -17,7 +17,7 @@
 use std::num::NonZeroU64;
 
 use clap::Args;
-use comfy_table::Table;
+// use comfy_table::Table;
 use regex::Regex;
 
 use crate::{password::Passwords, LprsError, LprsResult, RunCommand};
@@ -66,7 +66,8 @@ impl RunCommand for List {
                 ));
             }
 
-            let mut table = Table::new();
+            let mut table: Vec<Vec<String>> = Vec::new();
+            // let mut table = Table::new();
             let mut header = vec!["Index", "Name", "Username", "Password"];
             if self.with_service {
                 header.push("Service");
@@ -76,7 +77,8 @@ impl RunCommand for List {
             }
             let re = Regex::new(self.search.as_deref().unwrap_or("."))?;
 
-            table.set_header(header);
+            table.push(header.iter().map(|s| s.to_string()).collect::<Vec<_>>());
+            // table.set_header(header);
             let passwords = password_manager
                 .passwords
                 .iter()
@@ -131,9 +133,10 @@ impl RunCommand for List {
                 if self.with_note {
                     row.push(password.note.as_deref().unwrap_or("Not Set"))
                 }
-                table.add_row(row);
+                // table.add_row(row);
+                table.push(row.iter().map(|s| s.to_string()).collect::<Vec<_>>());
             }
-            println!("{table}");
+            println!("{table:#?}");
             Ok(())
         }
     }

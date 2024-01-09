@@ -42,7 +42,7 @@ pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const LAST_VERSION_CHECK_FILE: &str = ".last_version_check";
 
 fn main() -> ExitCode {
-    pretty_env_logger::init();
+    // pretty_env_logger::init();
 
     #[cfg(feature = "update-notify")]
     {

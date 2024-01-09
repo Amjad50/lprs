@@ -74,7 +74,11 @@ impl Cli {
                 ..Default::default()
             }
         } else {
-            let password = scanpw::scanpw!("Master Password: ");
+            // let password = scanpw::scanpw!("Master Password: ");
+            println!("Master Password: ");
+            // use stdin
+            let mut password = String::new();
+            std::io::stdin().read_line(&mut password).unwrap();
 
             if password::is_new_password_file(&passwords_file)? {
                 let analyzed = passwords::analyzer::analyze(&password);
@@ -88,12 +92,8 @@ impl Cli {
                     ));
                 }
             }
-
-            let master_password = sha256::digest(password);
-            Passwords::try_reload(
-                passwords_file,
-                master_password.into_bytes().into_iter().take(32).collect(),
-            )?
+            let master_password = lhash::sha256(password.as_bytes());
+            Passwords::try_reload(passwords_file, master_password.to_vec())?
         };
         self.command.run(password_manager)?;
 

@@ -14,17 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
 
-use std::{fs, path::PathBuf};
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
 
-use crate::{LprsError, LprsResult};
+use crate::LprsResult;
 
 /// Returns the local project dir joined with the given file name
 pub fn local_project_file(filename: &str) -> LprsResult<PathBuf> {
-    let local_dir = directories::ProjectDirs::from("", "", "lprs")
-        .map(|d| d.data_local_dir().to_path_buf())
-        .ok_or_else(|| {
-            LprsError::ProjectDir("Can't extract the project_dir from this OS".to_owned())
-        })?;
+    // WARNING: this is very specific to amjad_os, on linux it will crash since u can't access root by default
+    let local_dir = Path::new("/");
     if !local_dir.exists() {
         fs::create_dir_all(&local_dir)?;
     }

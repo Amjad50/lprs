@@ -1,0 +1,16 @@
+[package]
+name = "random-pick"
+version = "1.2.16"
+authors = ["Magic Len <len@magiclen.org>"]
+edition = "2021"
+rust-version = "1.56"
+repository = "https://github.com/magiclen/random-pick"
+homepage = "https://magiclen.org/random-pick"
+keywords = ["random", "pick", "choose", "array", "slice"]
+categories = ["algorithms"]
+description = "Pick an element from a slice randomly by given weights."
+license = "MIT"
+include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
+
+[dependencies]
+random-number = { path = "../random-number/random-number" }
