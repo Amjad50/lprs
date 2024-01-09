@@ -126,6 +126,8 @@ And with that, you will have an ELF file that you can use in AmjadOS.
 You can do that by building AmjadOS, and adding the `lprs` elf to the `filesystem` folder along with `passwords.json` containing your passowrds (since at the time of writing there is no `write` support, only `read`).
 Then you can run read related commands of `lprs` and enjoy.
 
+Demo Video:
+![Demo Video](demo.gif)
 
 
 ## Contributing
